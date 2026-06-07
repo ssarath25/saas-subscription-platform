@@ -1,70 +1,79 @@
+import Link from "next/link";
+
 export default function Sidebar() {
   return (
     <div className="w-64 min-h-screen bg-slate-900 text-white shadow-xl">
 
-      {/* Logo */}
       <div className="p-6 border-b border-slate-700">
         <h1 className="text-2xl font-bold text-white">
           SaaS Admin
         </h1>
 
-        <p className="text-slate-300 text-sm mt-1">
+        <p className="text-white mt-2">
           Subscription Platform
         </p>
       </div>
 
-      {/* Menu */}
       <nav className="p-4">
 
         <ul className="space-y-3">
 
-          <li className="bg-slate-800 p-3 rounded-lg cursor-pointer hover:bg-slate-700 transition">
-            <span className="text-white font-medium">
+          <li>
+            <Link
+              href="/dashboard"
+              className="block p-3 rounded-lg bg-slate-800 hover:bg-slate-700 font-bold"
+            >
               📊 Dashboard
-            </span>
+            </Link>
           </li>
 
-          <li className="p-3 rounded-lg cursor-pointer hover:bg-slate-700 transition">
-            <span className="text-white font-medium">
-              👥 Users
-            </span>
+          <li>
+            <Link
+              href="/admin"
+              className="block p-3 rounded-lg hover:bg-slate-700 font-bold"
+            >
+              👥 Admin
+            </Link>
           </li>
 
-          <li className="p-3 rounded-lg cursor-pointer hover:bg-slate-700 transition">
-            <span className="text-white font-medium">
-              💳 Plans
-            </span>
-          </li>
-
-          <li className="p-3 rounded-lg cursor-pointer hover:bg-slate-700 transition">
-            <span className="text-white font-medium">
-              💰 Billing
-            </span>
-          </li>
-
-          <li className="p-3 rounded-lg cursor-pointer hover:bg-slate-700 transition">
-            <span className="text-white font-medium">
+          <li>
+            <Link
+              href="/analytics"
+              className="block p-3 rounded-lg hover:bg-slate-700 font-bold"
+            >
               📈 Analytics
-            </span>
+            </Link>
           </li>
 
-          <li className="p-3 rounded-lg cursor-pointer hover:bg-slate-700 transition">
-            <span className="text-white font-medium">
-              ⚙️ Settings
-            </span>
+          <li>
+            <Link
+              href="/plans"
+              className="block p-3 rounded-lg hover:bg-slate-700 font-bold"
+            >
+              💳 Plans
+            </Link>
           </li>
+
+          <li>
+            <Link
+              href="/billing"
+              className="block p-3 rounded-lg hover:bg-slate-700 font-bold"
+            >
+              💰 Billing
+            </Link>
+          </li>
+          <li>
+            <Link
+              href="/settings"
+              className="block p-3 rounded-lg hover:bg-slate-700 font-bold"
+            >
+              ⚙️ Settings
+            </Link>
+            </li>
 
         </ul>
 
       </nav>
-
-      {/* Footer */}
-      <div className="absolute bottom-0 w-64 p-4 border-t border-slate-700">
-        <p className="text-slate-300 text-sm">
-          Version 1.0
-        </p>
-      </div>
-
     </div>
   );
 }
