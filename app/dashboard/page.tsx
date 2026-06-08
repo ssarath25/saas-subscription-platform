@@ -1,101 +1,97 @@
-import Sidebar from "@/components/Sidebar";
+"use client";
 
-export default function Dashboard() {
+import { useEffect, useState } from "react";
+import { useRouter } from "next/navigation";
+import axios from "axios";
+import Sidebar from "../../components/Sidebar";
+
+export default function DashboardPage() {
+  const router = useRouter();
+
+  const [user, setUser] = useState<any>(null);
+  const [plan, setPlan] = useState<any>(null);
+
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+
+    if (!token) {
+      router.push("/login");
+      return;
+    }
+
+    const storedUser = localStorage.getItem("user");
+
+    if (storedUser) {
+      const parsedUser = JSON.parse(storedUser);
+
+      setUser(parsedUser);
+
+      fetchSubscription(parsedUser.id);
+    }
+  }, [router]);
+
+  const fetchSubscription = async (userId: number) => {
+    try {
+      const response = await axios.get(
+        `http://localhost:5000/subscription/${userId}`
+      );
+
+      setPlan(response.data);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  const handleLogout = () => {
+    localStorage.removeItem("token");
+    localStorage.removeItem("user");
+
+    router.push("/login");
+  };
+
   return (
     <div className="flex">
-
       <Sidebar />
 
-      <main className="flex-1 bg-gray-100 min-h-screen">
-
-        {/* Header */}
-        <div className="bg-blue-600 text-white p-6 shadow">
-          <h1 className="text-3xl font-bold">
-            SaaS Dashboard
+      <div className="flex-1 p-8 bg-gray-100 min-h-screen">
+        <div className="flex justify-between items-center mb-6">
+          <h1 className="text-3xl font-bold text-black">
+            Dashboard
           </h1>
+
+          <button
+            onClick={handleLogout}
+            className="bg-red-600 text-white px-4 py-2 rounded hover:bg-red-700"
+          >
+            Logout
+          </button>
         </div>
 
-        {/* Welcome */}
-        <div className="p-8">
-          <h2 className="text-2xl font-bold text-black">
-            Welcome Back 👋
-          </h2>
-
-          <p className="text-gray-700 mt-2">
-            Here is an overview of your SaaS platform performance.
-          </p>
-        </div>
-
-        {/* Stats Cards */}
-        <div className="grid md:grid-cols-3 gap-6 px-8">
-
-          <div className="bg-white p-6 rounded-xl shadow-lg border">
-            <h3 className="text-gray-600 font-medium">
-              Total Users
-            </h3>
-
-            <p className="text-4xl font-bold text-black mt-2">
-              125
-            </p>
-          </div>
-
-          <div className="bg-white p-6 rounded-xl shadow-lg border">
-            <h3 className="text-gray-600 font-medium">
-              Revenue
-            </h3>
-
-            <p className="text-4xl font-bold text-green-600 mt-2">
-              $4,250
-            </p>
-          </div>
-
-          <div className="bg-white p-6 rounded-xl shadow-lg border">
-            <h3 className="text-gray-600 font-medium">
-              Active Subscriptions
-            </h3>
-
-            <p className="text-4xl font-bold text-blue-600 mt-2">
-              89
-            </p>
-          </div>
-
-        </div>
-
-        {/* Recent Activity */}
-        <div className="p-8">
-
-          <div className="bg-white rounded-xl shadow-lg p-6 border">
-
+        {user && (
+          <div className="bg-white p-6 rounded-lg shadow-lg">
             <h2 className="text-2xl font-bold text-black mb-4">
-              Recent Activity
+              Welcome, {user.name} 👋
             </h2>
 
-            <ul className="space-y-3 text-black">
+            <p className="text-black mb-2">
+              Email: {user.email}
+            </p>
 
-              <li className="p-3 bg-gray-50 rounded">
-                ✅ New user registered
-              </li>
+            <p className="text-black font-semibold">
+              Current Plan:{" "}
+              <span className="text-indigo-600">
+                {plan?.name || "No Plan"}
+              </span>
+            </p>
 
-              <li className="p-3 bg-gray-50 rounded">
-                ✅ Pro plan purchased
-              </li>
-
-              <li className="p-3 bg-gray-50 rounded">
-                ✅ Invoice generated
-              </li>
-
-              <li className="p-3 bg-gray-50 rounded">
-                ✅ Subscription renewed
-              </li>
-
-            </ul>
-
+            {plan?.price !== undefined && (
+              <p className="text-black mt-2">
+                Monthly Price: ₹{plan.price}
+              </p>
+            )}
           </div>
-
-        </div>
-
-      </main>
-
+        )}
+      </div>
     </div>
   );
 }
