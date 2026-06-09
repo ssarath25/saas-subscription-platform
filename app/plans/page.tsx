@@ -14,8 +14,9 @@ export default function PlansPage() {
   const fetchPlans = async () => {
     try {
       const response = await axios.get(
-        "http://localhost:5000/plans"
-      );
+  "https://saas-platform-backend-6zku.onrender.com/plans"
+  );
+     
 
       setPlans(response.data);
     } catch (error) {

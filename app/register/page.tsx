@@ -14,7 +14,7 @@ export default function RegisterPage() {
   const handleRegister = async () => {
     try {
       const response = await axios.post(
-        "http://localhost:5000/register",
+        "https://saas-platform-backend-6zku.onrender.com/register",
         {
           name,
           email,

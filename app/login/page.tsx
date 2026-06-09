@@ -13,7 +13,7 @@ export default function LoginPage() {
   const handleLogin = async () => {
     try {
       const response = await axios.post(
-        "http://localhost:5000/login",
+        "https://saas-platform-backend-6zku.onrender.com/login",
         {
           email,
           password,
