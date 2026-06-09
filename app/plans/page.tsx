@@ -14,7 +14,7 @@ export default function PlansPage() {
   const fetchPlans = async () => {
     try {
       const response = await axios.get(
-  "https://saas-platform-backend-6zku.onrender.com/plans"
+        "https://saas-platform-backend-6zku.onrender.com/plans"
   );
      
 
@@ -36,7 +36,7 @@ export default function PlansPage() {
       const user = JSON.parse(userData);
 
       const response = await axios.post(
-        "http://localhost:5000/subscribe",
+        "https://saas-platform-backend-6zku.onrender.com/subscribe",
         {
           user_id: user.id,
           plan_id: planId,

@@ -16,7 +16,7 @@ export default function AdminPage() {
   const fetchStats = async () => {
     try {
       const response = await axios.get(
-        "http://localhost:5000/admin/stats"
+        "https://saas-platform-backend-6zku.onrender.com/admin/stats"
       );
 
       setStats(response.data);
@@ -28,7 +28,7 @@ export default function AdminPage() {
   const fetchUsers = async () => {
     try {
       const response = await axios.get(
-        "http://localhost:5000/admin/users"
+        "https://saas-platform-backend-6zku.onrender.com/admin/users"
       );
 
       setUsers(response.data);
